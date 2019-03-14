@@ -1,3 +1,4 @@
+
 class Node {
   constructor(coords, parent) {
     this.coords = coords;

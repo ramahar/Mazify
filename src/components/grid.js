@@ -1,7 +1,7 @@
 import Node from './node';
 
 class Grid {
-  constructor(width, height) {
+  constructor(width, height){
     this.array = [...Array(width).keys()].map(i => Array(height));
     this.width = width;
     this.height = height;
@@ -9,7 +9,7 @@ class Grid {
     this.root = [];
   }
 
-  populateArray() {
+  populateArray(){
     for (var i = 0; i < this.width; i++) {
       for (var j = 0; j < this.height; j++) {
         this.array[i][j] = new Node([i, j], null);
@@ -17,16 +17,16 @@ class Grid {
     }
   }
 
-  contains(x,y) {
+  contains(x,y){
     return ((x >= 0 && x < this.width) && (y >= 0 && y < this.height));
   }
 
-  isOpenAt(x,y) {
+  isOpenAt(x,y){
     if (x === this.root[0] && y === this.root[1]) return false;
     return this.contains(x,y) && !this.array[x][y].parent;
   }
 
-  intersectsPath(x, y) {
+  intersectsPath(x, y){
     const close = this.array[x][y].candNeighbors;
     let count = 0;
     for (var i = 0; i < close.length; i++) {
@@ -39,11 +39,11 @@ class Grid {
     if (count > 2) return true;
   }
 
-  fillSquare(node) {
+  fillSquare(node){
     this.array[node.x][node.y] = node;
   }
 
-  nodes() {
+  nodes(){
     return [].concat.apply([], this.array);
   }
 }
