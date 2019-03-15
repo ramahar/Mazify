@@ -21,8 +21,10 @@ initialize();
 paintMaze(maze);
 
 let backTrack = true;
-let dumps = [], timeouts = [];
-let mazeGenerated = false, currMaze = '';
+let dumps = [];
+let timeouts = [];
+let mazeGenerated = false;
+let currMaze = '';
 
 function initialize() {
 	canvas.width = (mazerangex + 2) * 25;
@@ -53,8 +55,8 @@ function generateMaze(x, y) {
 
 	maze[doublex][doubley] = 0;
 
-	for (var i = 0, step = randint(4) - 1;
-		i < 4; i++, step = (step + phase) % 4) {
+	for (var i = 0, step = randint(4) - 1; i < 4; i++, 
+			step = (step + phase) % 4) {
 		if (doubley + dy[step] - 1 != mazerangey
 			&& maze[doublex + 2 * dx[step]][doubley + 2 * dy[step]]) {
 			maze[doublex + dx[step]][doubley + dy[step]] = 0;
@@ -171,11 +173,21 @@ function paintMaze(m) {
 	for (var i = 1; i <= mazerangex; i++) {
 		for (var j = 1; j <= mazerangey; j++) {
 			switch (m[i][j]) {
-				case 0: color = '#171819'; break; //Accessable Paths
-				case 15: color = '#48C9B0'; break; // Maze Solution
-				case 16: color = '#F1948A'; break; // Unaccessable Paths
-				case 17: color = '#85C1E9'; break; // Trying Paths In BFS
-				default: color = '#eff2f2'; break; // Maze Color
+				case 0: 
+					color = '#8495a5'; // Maze Color 
+					break; 
+				case 15: 
+					color = '#48C9B0'; 
+					break; // Maze Solution
+				case 16: 
+					color = '#ef7062'; 
+					break; // Unaccessable Paths
+				case 17: 
+					color = '#74bced'; // BFS Paths
+					break; 
+				default: 
+					color = '#eff2f2'; // Maze Background
+					break; 
 			}
 
 			ctx.fillStyle = color;

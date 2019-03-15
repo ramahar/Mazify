@@ -46,14 +46,13 @@ body {
   align-items: center;
   justify-content: space-around;
   margin-bottom: 20px;
-  /* margin-top: 30px; */
   padding: 30px;
 }
 
 canvas {
   display: flex;
   justify-content: center;
-  width: 75%;
+  width: 85%;
   padding-left: 50px;
 }
 
