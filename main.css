@@ -68,22 +68,11 @@ canvas {
   display: flex;
   /* justify-content: space-around; */
   flex-direction: column;
-  padding-top: 20px;
+  padding: 10px;
+  margin-left: 20px;
+  height: 100%;
 }
 
-/* .buttons > button {
-  padding: 15px;
-  color: #99A3A4;
-  outline: none;
-  cursor: pointer;
-  user-select: none;
-  border-radius: 3px;
-  border-style: solid;
-  border-color: #99A3A4;
-  background-color: transparent;
-  box-shadow: 0 1.5px 3px rgba(0,0,0,0.1);
-  transition: all .3s;
-} */
 
 .buttons > button{
   top: 40px;

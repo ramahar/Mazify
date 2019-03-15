@@ -66,103 +66,104 @@ function generateMaze(x, y) {
 	}
 }
 
-function searchMazeWithDFS(x, y, t) {
-	if (x == terminalx && y == terminaly) {
-		if (t == 0) paintMaze(maze);
-		else showProcess(t);
+// function searchMazeWithDFS(x, y, t) {
+// 	if (x == terminalx && y == terminaly) {
+// 		if (t == 0) paintMaze(maze);
+// 		else showProcess(t);
 
-		backTrack = false;
-		throw "Terminal reached in DFS.";
-	} else {
-		for (var step = 0; step < 4; step++) {
-			if ((x + dx[step] > 0)
-				&& (x + dx[step] <= mazerangex)
-				&& (y + dy[step] > 0)
-				&& (y + dy[step] <= mazerangey)
-				&& !maze[x + dx[step]][y + dy[step]]) {
-				x = x + dx[step]; y = y + dy[step];
+// 		backTrack = false;
+// 		throw "Terminal reached in DFS.";
+// 	} else {
+// 		for (var step = 0; step < 4; step++) {
+// 			if ((x + dx[step] > 0)
+// 				&& (x + dx[step] <= mazerangex)
+// 				&& (y + dy[step] > 0)
+// 				&& (y + dy[step] <= mazerangey)
+// 				&& !maze[x + dx[step]][y + dy[step]]) {
+// 				x = x + dx[step]; y = y + dy[step];
 
-				maze[x][y] = 15;
-				dumps.push(JSON.stringify(maze));
+// 				maze[x][y] = 15;
+// 				dumps.push(JSON.stringify(maze));
 
-				searchMazeWithDFS(x, y, t);
+// 				searchMazeWithDFS(x, y, t);
 
-				if (backTrack) {
-					maze[x][y] = 16; x = x - dx[step]; y = y - dy[step];
-					dumps.push(JSON.stringify(maze));
-				}
-			}
-		}
-	}
-}
+// 				if (backTrack) {
+// 					maze[x][y] = 16; x = x - dx[step]; y = y - dy[step];
+// 					dumps.push(JSON.stringify(maze));
+// 				}
+// 			}
+// 		}
+// 	}
+// }
 
-function searchMazeWithBFS(x, y, t) {
-	var Q = new Array(), Qupdated;
 
-	var QnextNum = new Array(MAX_RANGE_OF_MAZE);
-	for (var i = 0; i < MAX_RANGE_OF_MAZE; i++) {
-		QnextNum[i] = new Array(MAX_RANGE_OF_MAZE);
-		QnextNum[i].fill(0);
-	}
+// function searchMazeWithBFS(x, y, t) {
+// 	var Q = new Array(), Qupdated;
 
-	var Qpre = new Array(MAX_RANGE_OF_MAZE);
-	for (var i = 0; i < MAX_RANGE_OF_MAZE; i++) {
-		Qpre[i] = new Array(MAX_RANGE_OF_MAZE);
-		Qpre[i].fill([0, 0]);
-	}
+// 	var QnextNum = new Array(MAX_RANGE_OF_MAZE);
+// 	for (var i = 0; i < MAX_RANGE_OF_MAZE; i++) {
+// 		QnextNum[i] = new Array(MAX_RANGE_OF_MAZE);
+// 		QnextNum[i].fill(0);
+// 	}
 
-	Q.push([x, y]);
-	while (Q.length > 0) {
-		x = Q[0][0]; y = Q[0][1]; Qupdated = 0;
-		for (var step = 0; step < 4; step++) {
-			if ((x + dx[step] > 0)
-				&& (x + dx[step] <= mazerangex)
-				&& (y + dy[step] > 0)
-				&& (y + dy[step] <= mazerangey)
-				&& !maze[x + dx[step]][y + dy[step]]) {
+// 	var Qpre = new Array(MAX_RANGE_OF_MAZE);
+// 	for (var i = 0; i < MAX_RANGE_OF_MAZE; i++) {
+// 		Qpre[i] = new Array(MAX_RANGE_OF_MAZE);
+// 		Qpre[i].fill([0, 0]);
+// 	}
 
-				var xstep = x + dx[step], ystep = y + dy[step];
-				maze[xstep][ystep] = 17;
-				dumps.push(JSON.stringify(maze));
+// 	Q.push([x, y]);
+// 	while (Q.length > 0) {
+// 		x = Q[0][0]; y = Q[0][1]; Qupdated = 0;
+// 		for (var step = 0; step < 4; step++) {
+// 			if ((x + dx[step] > 0)
+// 				&& (x + dx[step] <= mazerangex)
+// 				&& (y + dy[step] > 0)
+// 				&& (y + dy[step] <= mazerangey)
+// 				&& !maze[x + dx[step]][y + dy[step]]) {
 
-				Q.push([xstep, ystep]); Qupdated = 1;
-				Qpre[xstep][ystep] = [x, y];
-				QnextNum[x][y]++;
+// 				var xstep = x + dx[step], ystep = y + dy[step];
+// 				maze[xstep][ystep] = 17;
+// 				dumps.push(JSON.stringify(maze));
 
-				if (xstep == terminalx && ystep == terminaly) {
-					do {
-						maze[xstep][ystep] = 15;
-						dumps.push(JSON.stringify(maze));
+// 				Q.push([xstep, ystep]); Qupdated = 1;
+// 				Qpre[xstep][ystep] = [x, y];
+// 				QnextNum[x][y]++;
 
-						var xtemp = Qpre[xstep][ystep][0];
-						ystep = Qpre[xstep][ystep][1];
-						xstep = xtemp;
-					} while (xstep && ystep);
+// 				if (xstep == terminalx && ystep == terminaly) {
+// 					do {
+// 						maze[xstep][ystep] = 15;
+// 						dumps.push(JSON.stringify(maze));
 
-					if (t == 0) paintMaze(maze);
-					else showProcess(t);
-					throw "Terminal reached in BFS.";
-				}
-			}
-		}
+// 						var xtemp = Qpre[xstep][ystep][0];
+// 						ystep = Qpre[xstep][ystep][1];
+// 						xstep = xtemp;
+// 					} while (xstep && ystep);
 
-		if (!Qupdated) {
-			var stepBackx = x, stepBacky = y;
-			while (stepBackx && stepBacky
-				&& !QnextNum[stepBackx][stepBacky]) {
-				maze[stepBackx][stepBacky] = 16;
-				dumps.push(JSON.stringify(maze));
+// 					if (t == 0) paintMaze(maze);
+// 					else showProcess(t);
+// 					throw "Terminal reached in BFS.";
+// 				}
+// 			}
+// 		}
 
-				var xtemp = Qpre[stepBackx][stepBacky][0];
-				stepBacky = Qpre[stepBackx][stepBacky][1];
-				stepBackx = xtemp;
+// 		if (!Qupdated) {
+// 			var stepBackx = x, stepBacky = y;
+// 			while (stepBackx && stepBacky
+// 				&& !QnextNum[stepBackx][stepBacky]) {
+// 				maze[stepBackx][stepBacky] = 16;
+// 				dumps.push(JSON.stringify(maze));
 
-				QnextNum[stepBackx][stepBacky]--;
-			}
-		}
-		Q.shift();
-	}
-}
+// 				var xtemp = Qpre[stepBackx][stepBacky][0];
+// 				stepBacky = Qpre[stepBackx][stepBacky][1];
+// 				stepBackx = xtemp;
+
+// 				QnextNum[stepBackx][stepBacky]--;
+// 			}
+// 		}
+// 		Q.shift();
+// 	}
+// }
 
 function randint(max) {
 	return Math.ceil(Math.random() * max);
@@ -174,7 +175,7 @@ function paintMaze(m) {
 		for (var j = 1; j <= mazerangey; j++) {
 			switch (m[i][j]) {
 				case 0: 
-					color = '#8495a5'; // Maze Color 
+					color = '#274a6b'; // Maze Color 
 					break; 
 				case 15: 
 					color = '#48C9B0'; 

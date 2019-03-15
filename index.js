@@ -7,20 +7,23 @@ document.getElementById("gen")
   mazeGenerated = true; 
   currMaze = JSON.stringify(maze);
 
-	showProcess(30);
+	//Maze generation time/speed 
+	showProcess(15);
 });
 
-document.getElementById("dfs")
-.addEventListener('click', function () {
-	if (!mazeGenerated) return;
-	setUp(); searchMazeWithDFS(outsetx, outsety, 30);
-});
+// document.getElementById("dfs")
+// .addEventListener('click', function () {
+// 	if (!mazeGenerated) return;
+// 	setUp(); 
+// 	searchMazeWithDFS(outsetx, outsety, 30);
+// });
 
-document.getElementById("bfs")
-.addEventListener('click', function () {
-	if (!mazeGenerated) return;
-	setUp(); searchMazeWithBFS(outsetx, outsety, 300);
-});
+// document.getElementById("bfs")
+// .addEventListener('click', function () {
+// 	if (!mazeGenerated) return;
+// 	setUp(); 
+// 	searchMazeWithBFS(outsetx, outsety, 300);
+// });
 
 function setUp() {
 	timeouts.forEach(function(t) {
