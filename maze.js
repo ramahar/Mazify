@@ -178,11 +178,11 @@ function paintMaze(m) {
 					color = '#274a6b'; // Maze Color 
 					break; 
 				case 15: 
-					color = '#48C9B0'; 
-					break; // Maze Solution
+					color = '#48C9B0'; // Maze Solution
+					break; 
 				case 16: 
-					color = '#ef7062'; 
-					break; // Unaccessable Paths
+					color = '#ef7062'; 	// Unaccessable Paths
+					break; 
 				case 17: 
 					color = '#74bced'; // BFS Paths
 					break; 

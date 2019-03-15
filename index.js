@@ -11,12 +11,12 @@ document.getElementById("gen")
 	showProcess(15);
 });
 
-// document.getElementById("dfs")
-// .addEventListener('click', function () {
-// 	if (!mazeGenerated) return;
-// 	setUp(); 
-// 	searchMazeWithDFS(outsetx, outsety, 30);
-// });
+document.getElementById("dfs")
+.addEventListener('click', function () {
+	if (!mazeGenerated) return;
+	setUp(); 
+	searchMazeWithDFS(outsetx, outsety, 30);
+});
 
 // document.getElementById("bfs")
 // .addEventListener('click', function () {
