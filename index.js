@@ -5,9 +5,8 @@ document.getElementById("gen")
   initialize();
 	generateMaze(randint(generatex), randint(generatey));
   mazeGenerated = true; 
-  currMaze = JSON.stringify(maze);
-
-	//Maze generation time/speed 
+	currMaze = JSON.stringify(maze);
+	
 	showProcess(15);
 });
 

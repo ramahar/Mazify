@@ -13,6 +13,7 @@ const dx = [0, 1, 0, -1], dy = [1, 0, -1, 0];
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
+//Create maze 
 let maze = new Array(MAX_RANGE_OF_MAZE);
 for (var i = 0; i < MAX_RANGE_OF_MAZE; i++)
 	maze[i] = new Array(MAX_RANGE_OF_MAZE);
@@ -175,7 +176,7 @@ function paintMaze(m) {
 		for (var j = 1; j <= mazerangey; j++) {
 			switch (m[i][j]) {
 				case 0: 
-					color = '#274a6b'; // Maze Color 
+					color = '#2896ff'; // Maze Color 
 					break; 
 				case 15: 
 					color = '#48C9B0'; // Maze Solution
@@ -187,7 +188,7 @@ function paintMaze(m) {
 					color = '#74bced'; // BFS Paths
 					break; 
 				default: 
-					color = '#eff2f2'; // Maze Background
+					color = 'black'; // Maze Background
 					break; 
 			}
 
