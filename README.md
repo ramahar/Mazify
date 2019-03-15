@@ -1,7 +1,7 @@
 # Mazify
-[Live version.](https://ramahar.github.io)
+[Live version.](https://ramahar.github.io/Mazify)
 
-Mazify is a visualization of maze-solving algorithms. A maze is displayed and the user can choose which algorithm to run on the maze. Algorithm will then be visualized on the maze 
+Mazify is a visualization of maze solving and maze generating algorithms. A maze is displayed and the user can choose which algorithm to run on the maze. Algorithm will then be visualized on the maze 
     
 ## Architecture and Technologies
 - Vanilla JavaScript

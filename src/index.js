@@ -1,92 +1,69 @@
-import bfsFlood from './generators/bfs_flood';
-import bfsRandomFlood from './generators/bfs_random_flood';
-import maze from './generators/maze_generator';
-import bfsSolver from './solvers/bfs_solver';
-import aStar from './solvers/a_star_solver';
+// import GenerateMaze from './generate_maze';
 
-document.addEventListener("DOMContentLoaded", () => {
+// $(() => {
+//   const canvasEl = document.getElementsByTagName("canvas")[0];
+//   let width = 34;
+//   let height = 24;
+//   canvasEl.height = height * 20 + 40;
+//   canvasEl.width = width * 20 + 40;
 
-  // bfsMazeGenerator(type, root, gridDims, canvasId, color, solver, method, target)
-  maze("prims", [0,0], [100,100], "0", true, aStar, null, [98,98]);
-  document.dispatchEvent(new Event("scroll"));
-  // Prims headliner-maze, color, A* solver
-  maze("bfs", [0,0], [100,100], "1", true, aStar, null, [98,98]);
-  document.dispatchEvent(new Event("scroll"));
+//   const clickNames = ["BFS", "DFS", "AstarM", "AstarSL", "Dijkstra"];
 
-  // BFS non-maze, B&W
-  maze("bfsNonMaze", [0,0], [100,100], "1", false);
+//   const disableAllBtns = () => {
+//     clickNames.concat(["maze-regen"]).forEach(className => {
+//       $(`.${className}`).prop("disabled", true);
+//       $(`.${className}-recent`).unbind("mouseenter mouseleave");
+//     });
+//   };
 
-  // BFS maze, B&W
-  maze("bfs", [0,0], [100,100], "2", false);
+//   const enableAllBtns = () => {
+//     clickNames.concat(["maze-regen"]).forEach(className => {
+//       $(`.${className}`).prop("disabled", false);
+//       $(`.${className}-recent`).mouseenter(() => {
+//         handleHover(`${className}`);
+//       }).mouseleave(() => {
+//         handleHover(lastAction);
+//       });
+//     });
+//   };
 
-  // BFS maze, Colored
-  maze("bfs", [0,0], [100,100], "3", true);
+//   const maze = new GenerateMaze(canvasEl, width, height, enableAllBtns);
+//   disableAllBtns();
+//   maze.generate(canvasEl);
 
-  // Prim's maze, B&W
-  maze("prims", [0,0], [100,200], "4", false);
+//   $(".prims").removeClass("hidden");
+//   let lastAction = null;
 
-  // Prim's maze, Colored
-  maze("prims", [0,0], [100,100], "5", true);
+//   const handleClick = searchType => {
+//     maze.quickRegen();
+//     maze.displayVisited(searchType);
 
-  // DFS non-maze, B&W
-  maze("dfsNonMaze", [0,0], [100,100], "6", false);
+//     $(".info").addClass("hidden");
+//     $(`.${searchType}`).removeClass("hidden");
+//     $(`.${searchType}-recent`).removeClass("hidden");
 
-  // DFS maze, B&W
-  maze("dfs", [0,0], [100,100], "7", false);
+//     lastAction = searchType;
+//   };
 
-  // DFS maze, Colorized
-  maze("dfs", [0,0], [100,100], "8", true);
+//   const handleHover = searchType => {
+//     maze.quickRegen();
+//     maze.quickDisplay(searchType);
+//     $(".info").addClass("hidden");
+//     $(`.${searchType}`).removeClass("hidden");
+//   };
 
-  // BFS maze, Colorized
-  maze("bfs", [0,0], [100,100], "9", true);
+//   $(".maze-regen").on("click", () => {
+//     disableAllBtns();
+//     maze.generate(canvasEl);
+//     $(".info").addClass("hidden");
+//     $(".recenttrav").addClass("hidden");
+//     $(".prims").removeClass("hidden");
+//   });
 
-  // BFS maze, with DFS solver, root at center
-  maze("bfs", [50,50], [100,100], "10", true, bfsSolver, "dfs", [98,98]);
-
-  // Prim's maze, with DFS solver, root at center
-  maze("prims", [50,50], [100,100], "11", true, bfsSolver, "dfs", [98,98]);
-
-  // DFS maze, with DFS solver, root at center
-  maze("dfs", [50,50], [100,100], "12", true, bfsSolver, "dfs", [98,98]);
-
-  // Prim's maze, BFS Solver, Root at center
-  maze("bfs", [50,50], [100,100], "13", true, bfsSolver, "bfs", [98,98]);
-
-  // Prim's maze, BFS Solver, Root and Target near center
-  maze("prims", [40,50], [100,100], "14", true, bfsSolver, "bfs", [50,40]);
-
-  // Prim's maze, DFS Solver, Root and Target near center
-  maze("prims", [40,50], [100,100], "15", true, bfsSolver, "dfs", [50,40]);
-
-  // BFS maze, DFS Solver, Root at corner
-  maze("bfs", [0,0], [100,100], "16", true, bfsSolver, "dfs", [98,98]);
-
-  // BFS maze, BFS Solver, Root at corner
-  maze("bfs", [0,0], [100,100], "16a", true, bfsSolver, "bfs", [98,98]);
-
-  // BFS maze, Dijkstra solver
-  maze("bfs", [0,0], [100,200], "17", true, aStar, "dijkstra", [98,198]);
-
-  // BFS maze, A* solver, Root at center
-  maze("bfs", [50,50], [100,100], "18", true, aStar, null, [98,98]);
-
-  // Prim's maze, A* solver, Root at center
-  maze("prims", [50,50], [100,100], "19", true, aStar, null, [98,98]);
-
-  // DFS maze, A* solver, Root at center
-  maze("dfs", [50,50], [100,100], "20", true, aStar, null, [98,98]);
-
-  maze("bfs", [0,0], [100,100], "21", true, bfsSolver, "dfs", [98,98]);
-  maze("bfs", [0,0], [100,100], "22", true, bfsSolver, "bfs", [98,98]);
-  maze("bfs", [0,0], [100,100], "23", true, aStar, null, [98,98]);
-  maze("dfs", [0,0], [100,100], "24", true, bfsSolver, "dfs", [98,98]);
-  maze("dfs", [0,0], [100,100], "25", true, bfsSolver, "bfs", [98,98]);
-  maze("dfs", [0,0], [100,100], "26", true, aStar, null, [98,98]);
-  maze("prims", [0,0], [100,100], "27", true, bfsSolver, "dfs", [98,98]);
-  maze("prims", [0,0], [100,100], "28", true, bfsSolver, "bfs", [98,98]);
-  maze("prims", [0,0], [100,100], "29", true, aStar, null, [98,98]);
-  maze("prims", [0,0], [300,300], "30", true, aStar, null, [298,298]);
-  maze("prims", [0,0], [300,300], "31", true, bfsSolver, "dfs", [298,298]);
-
-
-});
+//   $(".search-btns").on("click", (event) => {
+//     if (clickNames.includes(event.target.className)) {
+//       disableAllBtns();
+//       handleClick(event.target.className);
+//     }
+//   });
+// });
