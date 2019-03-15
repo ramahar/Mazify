@@ -61,41 +61,42 @@ function generateMaze(x, y) {
 		if (doubley + dy[step] - 1 != mazerangey
 			&& maze[doublex + 2 * dx[step]][doubley + 2 * dy[step]]) {
 			maze[doublex + dx[step]][doubley + dy[step]] = 0;
+			//Converts maze JS object to JSON string 
 			dumps.push(JSON.stringify(maze));
 			generateMaze(x + dx[step], y + dy[step]);
 		}
 	}
 }
 
-// function searchMazeWithDFS(x, y, t) {
-// 	if (x == terminalx && y == terminaly) {
-// 		if (t == 0) paintMaze(maze);
-// 		else showProcess(t);
+function searchMazeWithDFS(x, y, t) {
+	if (x == terminalx && y == terminaly) {
+		if (t == 0) paintMaze(maze);
+		else showProcess(t);
 
-// 		backTrack = false;
-// 		throw "Terminal reached in DFS.";
-// 	} else {
-// 		for (var step = 0; step < 4; step++) {
-// 			if ((x + dx[step] > 0)
-// 				&& (x + dx[step] <= mazerangex)
-// 				&& (y + dy[step] > 0)
-// 				&& (y + dy[step] <= mazerangey)
-// 				&& !maze[x + dx[step]][y + dy[step]]) {
-// 				x = x + dx[step]; y = y + dy[step];
+		backTrack = false;
+		throw "Terminal reached";
+	} else {
+		for (var step = 0; step < 4; step++) {
+			if ((x + dx[step] > 0)
+				&& (x + dx[step] <= mazerangex)
+				&& (y + dy[step] > 0)
+				&& (y + dy[step] <= mazerangey)
+				&& !maze[x + dx[step]][y + dy[step]]) {
+				x = x + dx[step]; y = y + dy[step];
 
-// 				maze[x][y] = 15;
-// 				dumps.push(JSON.stringify(maze));
+				maze[x][y] = 15;
+				dumps.push(JSON.stringify(maze));
 
-// 				searchMazeWithDFS(x, y, t);
+				searchMazeWithDFS(x, y, t);
 
-// 				if (backTrack) {
-// 					maze[x][y] = 16; x = x - dx[step]; y = y - dy[step];
-// 					dumps.push(JSON.stringify(maze));
-// 				}
-// 			}
-// 		}
-// 	}
-// }
+				if (backTrack) {
+					maze[x][y] = 16; x = x - dx[step]; y = y - dy[step];
+					dumps.push(JSON.stringify(maze));
+				}
+			}
+		}
+	}
+}
 
 
 // function searchMazeWithBFS(x, y, t) {
@@ -179,10 +180,10 @@ function paintMaze(m) {
 					color = '#2896ff'; // Maze Color 
 					break; 
 				case 15: 
-					color = '#48C9B0'; // Maze Solution
+					color = '#18dd77'; // Maze Solution
 					break; 
 				case 16: 
-					color = '#ef7062'; 	// Unaccessable Paths
+					color = '#dd2b17'; 	// Unaccessable Paths
 					break; 
 				case 17: 
 					color = '#74bced'; // BFS Paths

@@ -1,6 +1,7 @@
+/* eslint-disable no-undef */
 
-document.getElementById("gen")
-.addEventListener('click', function () {
+	const generate = document.getElementById("gen");
+	generate.addEventListener('click', function () {
   setUp(); 
   initialize();
 	generateMaze(randint(generatex), randint(generatey));
@@ -8,14 +9,19 @@ document.getElementById("gen")
 	currMaze = JSON.stringify(maze);
 	
 	showProcess(15);
-});
 
-document.getElementById("dfs")
-.addEventListener('click', function () {
-	if (!mazeGenerated) return;
-	setUp(); 
-	searchMazeWithDFS(outsetx, outsety, 30);
-});
+	// paragraph = document.getElementById("paragraph");
+	// if (paragraph.style.display == 'none') {
+  //   paragraph.style.display = 'block';
+  // } 
+}, false);
+
+// document.getElementById("dfs")
+// .addEventListener('click', function () {
+// 	if (!mazeGenerated) return;
+// 	setUp(); 
+// 	searchMazeWithDFS(outsetx, outsety, 30);
+// });
 
 // document.getElementById("bfs")
 // .addEventListener('click', function () {
