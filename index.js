@@ -9,26 +9,21 @@
 	currMaze = JSON.stringify(maze);
 	
 	showProcess(15);
+});
 
-	// paragraph = document.getElementById("paragraph");
-	// if (paragraph.style.display == 'none') {
-  //   paragraph.style.display = 'block';
-  // } 
-}, false);
+document.getElementById("dfs")
+.addEventListener('click', function () {
+	if (!mazeGenerated) return;
+	setUp(); 
+	searchMazeWithDFS(outsetx, outsety, 20);
+});
 
-// document.getElementById("dfs")
-// .addEventListener('click', function () {
-// 	if (!mazeGenerated) return;
-// 	setUp(); 
-// 	searchMazeWithDFS(outsetx, outsety, 30);
-// });
-
-// document.getElementById("bfs")
-// .addEventListener('click', function () {
-// 	if (!mazeGenerated) return;
-// 	setUp(); 
-// 	searchMazeWithBFS(outsetx, outsety, 300);
-// });
+document.getElementById("bfs")
+.addEventListener('click', function () {
+	if (!mazeGenerated) return;
+	setUp(); 
+	searchMazeWithBFS(outsetx, outsety, 40);
+});
 
 function setUp() {
 	timeouts.forEach(function(t) {

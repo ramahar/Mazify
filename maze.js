@@ -5,8 +5,8 @@ const
 	outsetx = 2, outsety = 1,
 	terminalx = 2 * generatex,
 	terminaly = 2 * generatey + 1,
-	mazerangex = 2 * generatex + 1,
-	mazerangey = 2 * generatey + 1;
+	mazeX = 2 * generatex + 1,
+	mazeY = 2 * generatey + 1;
 
 const dx = [0, 1, 0, -1], dy = [1, 0, -1, 0];
 
@@ -28,11 +28,11 @@ let mazeGenerated = false;
 let currMaze = '';
 
 function initialize() {
-	canvas.width = (mazerangex + 2) * 25;
-	canvas.height = (mazerangey + 2) * 25;
+	canvas.width = (mazeX + 2) * 25;
+	canvas.height = (mazeY + 2) * 25;
 
-	canvas.style.width = (mazerangex + 2) * 25;
-	canvas.style.height = (mazerangey + 2) * 25;
+	canvas.style.width = (mazeX + 2) * 25;
+	canvas.style.height = (mazeY + 2) * 25;
 
 	for (var i = 0; i <= generatex * 2 + 2; i++)
 		for (var j = 0; j <= generatey * 2 + 2; j++)
@@ -51,14 +51,15 @@ function initialize() {
 }
 
 function generateMaze(x, y) {
-	var doublex = x * 2, doubley = y * 2;
+	var doublex = x * 2;
+	var doubley = y * 2;
 	var phase = (Math.random() > 0.5) ? 1 : 3;
 
 	maze[doublex][doubley] = 0;
 
 	for (var i = 0, step = randint(4) - 1; i < 4; i++, 
 			step = (step + phase) % 4) {
-		if (doubley + dy[step] - 1 != mazerangey
+		if (doubley + dy[step] - 1 != mazeY
 			&& maze[doublex + 2 * dx[step]][doubley + 2 * dy[step]]) {
 			maze[doublex + dx[step]][doubley + dy[step]] = 0;
 			//Converts maze JS object to JSON string 
@@ -74,13 +75,13 @@ function searchMazeWithDFS(x, y, t) {
 		else showProcess(t);
 
 		backTrack = false;
-		throw "Terminal reached";
+		throw "Error";
 	} else {
 		for (var step = 0; step < 4; step++) {
 			if ((x + dx[step] > 0)
-				&& (x + dx[step] <= mazerangex)
+				&& (x + dx[step] <= mazeX)
 				&& (y + dy[step] > 0)
-				&& (y + dy[step] <= mazerangey)
+				&& (y + dy[step] <= mazeY)
 				&& !maze[x + dx[step]][y + dy[step]]) {
 				x = x + dx[step]; y = y + dy[step];
 
@@ -99,73 +100,73 @@ function searchMazeWithDFS(x, y, t) {
 }
 
 
-// function searchMazeWithBFS(x, y, t) {
-// 	var Q = new Array(), Qupdated;
+function searchMazeWithBFS(x, y, t) {
+	var Q = new Array(), Qupdated;
 
-// 	var QnextNum = new Array(MAX_RANGE_OF_MAZE);
-// 	for (var i = 0; i < MAX_RANGE_OF_MAZE; i++) {
-// 		QnextNum[i] = new Array(MAX_RANGE_OF_MAZE);
-// 		QnextNum[i].fill(0);
-// 	}
+	var QnextNum = new Array(MAX_RANGE_OF_MAZE);
+	for (var i = 0; i < MAX_RANGE_OF_MAZE; i++) {
+		QnextNum[i] = new Array(MAX_RANGE_OF_MAZE);
+		QnextNum[i].fill(0);
+	}
 
-// 	var Qpre = new Array(MAX_RANGE_OF_MAZE);
-// 	for (var i = 0; i < MAX_RANGE_OF_MAZE; i++) {
-// 		Qpre[i] = new Array(MAX_RANGE_OF_MAZE);
-// 		Qpre[i].fill([0, 0]);
-// 	}
+	var Qpre = new Array(MAX_RANGE_OF_MAZE);
+	for (var i = 0; i < MAX_RANGE_OF_MAZE; i++) {
+		Qpre[i] = new Array(MAX_RANGE_OF_MAZE);
+		Qpre[i].fill([0, 0]);
+	}
 
-// 	Q.push([x, y]);
-// 	while (Q.length > 0) {
-// 		x = Q[0][0]; y = Q[0][1]; Qupdated = 0;
-// 		for (var step = 0; step < 4; step++) {
-// 			if ((x + dx[step] > 0)
-// 				&& (x + dx[step] <= mazerangex)
-// 				&& (y + dy[step] > 0)
-// 				&& (y + dy[step] <= mazerangey)
-// 				&& !maze[x + dx[step]][y + dy[step]]) {
+	Q.push([x, y]);
+	while (Q.length > 0) {
+		x = Q[0][0]; y = Q[0][1]; Qupdated = 0;
+		for (var step = 0; step < 4; step++) {
+			if ((x + dx[step] > 0)
+				&& (x + dx[step] <= mazeX)
+				&& (y + dy[step] > 0)
+				&& (y + dy[step] <= mazeY)
+				&& !maze[x + dx[step]][y + dy[step]]) {
 
-// 				var xstep = x + dx[step], ystep = y + dy[step];
-// 				maze[xstep][ystep] = 17;
-// 				dumps.push(JSON.stringify(maze));
+				var xstep = x + dx[step], ystep = y + dy[step];
+				maze[xstep][ystep] = 17;
+				dumps.push(JSON.stringify(maze));
 
-// 				Q.push([xstep, ystep]); Qupdated = 1;
-// 				Qpre[xstep][ystep] = [x, y];
-// 				QnextNum[x][y]++;
+				Q.push([xstep, ystep]); Qupdated = 1;
+				Qpre[xstep][ystep] = [x, y];
+				QnextNum[x][y]++;
 
-// 				if (xstep == terminalx && ystep == terminaly) {
-// 					do {
-// 						maze[xstep][ystep] = 15;
-// 						dumps.push(JSON.stringify(maze));
+				if (xstep == terminalx && ystep == terminaly) {
+					do {
+						maze[xstep][ystep] = 15;
+						dumps.push(JSON.stringify(maze));
 
-// 						var xtemp = Qpre[xstep][ystep][0];
-// 						ystep = Qpre[xstep][ystep][1];
-// 						xstep = xtemp;
-// 					} while (xstep && ystep);
+						var xtemp = Qpre[xstep][ystep][0];
+						ystep = Qpre[xstep][ystep][1];
+						xstep = xtemp;
+					} while (xstep && ystep);
 
-// 					if (t == 0) paintMaze(maze);
-// 					else showProcess(t);
-// 					throw "Terminal reached in BFS.";
-// 				}
-// 			}
-// 		}
+					if (t == 0) paintMaze(maze);
+					else showProcess(t);
+					throw "Terminal reached in BFS.";
+				}
+			}
+		}
 
-// 		if (!Qupdated) {
-// 			var stepBackx = x, stepBacky = y;
-// 			while (stepBackx && stepBacky
-// 				&& !QnextNum[stepBackx][stepBacky]) {
-// 				maze[stepBackx][stepBacky] = 16;
-// 				dumps.push(JSON.stringify(maze));
+		if (!Qupdated) {
+			var stepBackx = x, stepBacky = y;
+			while (stepBackx && stepBacky
+				&& !QnextNum[stepBackx][stepBacky]) {
+				maze[stepBackx][stepBacky] = 16;
+				dumps.push(JSON.stringify(maze));
 
-// 				var xtemp = Qpre[stepBackx][stepBacky][0];
-// 				stepBacky = Qpre[stepBackx][stepBacky][1];
-// 				stepBackx = xtemp;
+				var xtemp = Qpre[stepBackx][stepBacky][0];
+				stepBacky = Qpre[stepBackx][stepBacky][1];
+				stepBackx = xtemp;
 
-// 				QnextNum[stepBackx][stepBacky]--;
-// 			}
-// 		}
-// 		Q.shift();
-// 	}
-// }
+				QnextNum[stepBackx][stepBacky]--;
+			}
+		}
+		Q.shift();
+	}
+}
 
 function randint(max) {
 	return Math.ceil(Math.random() * max);
@@ -173,8 +174,8 @@ function randint(max) {
 
 function paintMaze(m) {
 	var color;
-	for (var i = 1; i <= mazerangex; i++) {
-		for (var j = 1; j <= mazerangey; j++) {
+	for (var i = 1; i <= mazeX; i++) {
+		for (var j = 1; j <= mazeY; j++) {
 			switch (m[i][j]) {
 				case 0: 
 					color = '#2896ff'; // Maze Color 
@@ -186,7 +187,7 @@ function paintMaze(m) {
 					color = '#dd2b17'; 	// Unaccessable Paths
 					break; 
 				case 17: 
-					color = '#74bced'; // BFS Paths
+					color = '#18dd77'; // BFS Paths
 					break; 
 				default: 
 					color = 'black'; // Maze Background
@@ -199,6 +200,7 @@ function paintMaze(m) {
 	}
 }
 
+//Render on canvas 
 function showProcess(t) {
 	dumps.forEach(function(m, i) {
 		timeouts.push(
