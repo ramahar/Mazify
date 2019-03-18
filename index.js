@@ -22,13 +22,14 @@ document.getElementById("bfs")
 .addEventListener('click', function () {
 	if (!mazeGenerated) return;
 	setUp(); 
-	searchMazeWithBFS(outsetx, outsety, 40);
+	searchMazeWithBFS(outsetx, outsety, 25);
 });
 
 function setUp() {
 	timeouts.forEach(function(t) {
 		clearTimeout(t);
 	});
-	dumps = []; backTrack = true;
+  result = []; 
+  backTrack = true;
 	if (mazeGenerated) maze = JSON.parse(currMaze);
 }

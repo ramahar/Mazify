@@ -22,7 +22,7 @@ initialize();
 paintMaze(maze);
 
 let backTrack = true;
-let dumps = [];
+let result = [];
 let timeouts = [];
 let mazeGenerated = false;
 let currMaze = '';
@@ -63,7 +63,7 @@ function generateMaze(x, y) {
 			&& maze[doublex + 2 * dx[step]][doubley + 2 * dy[step]]) {
 			maze[doublex + dx[step]][doubley + dy[step]] = 0;
 			//Converts maze JS object to JSON string 
-			dumps.push(JSON.stringify(maze));
+			result.push(JSON.stringify(maze));
 			generateMaze(x + dx[step], y + dy[step]);
 		}
 	}
@@ -86,13 +86,13 @@ function searchMazeWithDFS(x, y, t) {
 				x = x + dx[step]; y = y + dy[step];
 
 				maze[x][y] = 15;
-				dumps.push(JSON.stringify(maze));
+				result.push(JSON.stringify(maze));
 
 				searchMazeWithDFS(x, y, t);
 
 				if (backTrack) {
 					maze[x][y] = 16; x = x - dx[step]; y = y - dy[step];
-					dumps.push(JSON.stringify(maze));
+					result.push(JSON.stringify(maze));
 				}
 			}
 		}
@@ -127,7 +127,7 @@ function searchMazeWithBFS(x, y, t) {
 
 				var xstep = x + dx[step], ystep = y + dy[step];
 				maze[xstep][ystep] = 17;
-				dumps.push(JSON.stringify(maze));
+				result.push(JSON.stringify(maze));
 
 				Q.push([xstep, ystep]); Qupdated = 1;
 				Qpre[xstep][ystep] = [x, y];
@@ -136,7 +136,7 @@ function searchMazeWithBFS(x, y, t) {
 				if (xstep == terminalx && ystep == terminaly) {
 					do {
 						maze[xstep][ystep] = 15;
-						dumps.push(JSON.stringify(maze));
+						result.push(JSON.stringify(maze));
 
 						var xtemp = Qpre[xstep][ystep][0];
 						ystep = Qpre[xstep][ystep][1];
@@ -155,7 +155,7 @@ function searchMazeWithBFS(x, y, t) {
 			while (stepBackx && stepBacky
 				&& !QnextNum[stepBackx][stepBacky]) {
 				maze[stepBackx][stepBacky] = 16;
-				dumps.push(JSON.stringify(maze));
+				result.push(JSON.stringify(maze));
 
 				var xtemp = Qpre[stepBackx][stepBacky][0];
 				stepBacky = Qpre[stepBackx][stepBacky][1];
@@ -193,7 +193,7 @@ function paintMaze(m) {
 					color = 'black'; // Maze Background
 					break; 
 			}
-
+			//Render maze on canvas
 			ctx.fillStyle = color;
 			ctx.fillRect(i * 25, j * 25, 25, 25);
 		}
@@ -202,17 +202,15 @@ function paintMaze(m) {
 
 //Render on canvas 
 function showProcess(t) {
-	dumps.forEach(function(m, i) {
-		timeouts.push(
-			setTimeout(function() {
+	result.forEach(function(m, i) {
+		timeouts.push(setTimeout(function() {
 				paintMaze(JSON.parse(m));
 			}, i * t)
 		);
 	});
 
-	timeouts.push(
-		setTimeout(function() {
+	timeouts.push(setTimeout(function() {
 			paintMaze(maze);
-		}, dumps.length * t)
+		}, result.length * t)
 	);
 }
