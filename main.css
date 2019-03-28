@@ -157,7 +157,6 @@ width: 120%;
   border-width:0 2em;
   display:block;
   height:0;
-  /* margin:10em auto; */
   margin-left: 45px;
   opacity:0.4;
   text-indent:-9999px;
@@ -177,7 +176,6 @@ width: 120%;
 #paragraph {
   text-align: center;
 }
-
 
 .footer {
   position: relative;
