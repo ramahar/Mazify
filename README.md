@@ -8,16 +8,17 @@ Mazify is a Javascript browser application that visualizes maze solving and maze
 - Canvas
 - HTML5 + CSS3
 
-## MVP Features
-- Basic visuals and an interactive interface.
-- Description and details of some algorithms (DFS, BFS, Dijkstra etc.)
-- User can click on an algorithm to visualize it on the maze 
-- Add maze generator on top of maze solver 
+## Features
+- Interactive interface with buttons for algorithms 
+- Implementation of graph traversing algorithms (DFS, BFS, Dijkstra etc.)
+- Render path-solving algorithm on a randomly generate maze using Canvas
+- Dynamically manipulate the DOM using pure Javascript
+- Add maze generator to generate new random maze on every click
 
 
 ## Algorithms 
 - BFS
 - DFS
-- Prim's Algorithm 
-- Dijkstra's Algorithm
-- A*
+- A* Search
+
+## Implementation
