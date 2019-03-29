@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 	const generate = document.getElementById("gen");
 	generate.addEventListener('click', function () {
   setUp(); 
