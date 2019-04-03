@@ -40,3 +40,28 @@ document.getElementById("bfs")
 	searchMazeWithBFS(outsetx, outsety, 25);
 });
 ```
+
+![maze](./assets/mazify.png)
+
+A random maze generating algorithm was implemented to create a new maze with different start and end points every time  
+
+```
+function generateMaze(x, y) {
+	var doublex = x * 2;
+	var doubley = y * 2;
+	var phase = (Math.random() > 0.5) ? 1 : 3;
+
+	maze[doublex][doubley] = 0;
+
+	for (var i = 0, step = randint(4) - 1; i < 4; i++, 
+			step = (step + phase) % 4) {
+		if (doubley + dy[step] - 1 != mazeY
+			&& maze[doublex + 2 * dx[step]][doubley + 2 * dy[step]]) {
+			maze[doublex + dx[step]][doubley + dy[step]] = 0;
+			//Converts maze JS object to JSON string 
+			result.push(JSON.stringify(maze));
+			generateMaze(x + dx[step], y + dy[step]);
+		}
+	}
+}
+```
