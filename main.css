@@ -188,13 +188,10 @@ width: 120%;
   border-top: 3px solid transparent;
 }
 
-
-
-
-
-
-
-
-
-
-
+.left-header-sub {
+  display: flex;
+  /* justify-content: space-around; */
+  flex-direction: column;
+  padding: 10px;
+  margin-left: 20px;
+}
